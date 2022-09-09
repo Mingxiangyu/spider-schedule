@@ -60,6 +60,7 @@ public class JobRegistryHelper {
                   ">>>>>>>>>>> xxl-job, registry or remove too fast, match threadpool rejected handler(run now).");
             });
 
+    // toDo 添加线程进行获取注册的执行器
     // for monitor 启动监听注册的线程
     registryMonitorThread =
         new Thread(

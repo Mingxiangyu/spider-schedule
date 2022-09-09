@@ -137,7 +137,7 @@ public class JobInfoController {
     // toDo 获取列表
   }
 
-  // toDo 获取种子库内数据，添加为xxl的任务
+  // toDo 定时任务，获取种子库内数据，添加为xxl的任务
   public void getTorrent() {}
 
   @RequestMapping("/update")

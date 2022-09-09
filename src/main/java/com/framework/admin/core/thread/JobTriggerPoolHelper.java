@@ -31,11 +31,17 @@ public class JobTriggerPoolHelper {
     // 快线程池
     fastTriggerPool =
         new ThreadPoolExecutor(
+            // -corePoolSize(int)：线程池中保持的线程数量。包含空暇线程在内。也就是线程池释放的最小线程数量界限。
             10,
+            // -maximumPoolSize(int):线程池中容纳最大线程数量。
             XxlJobAdminConfig.getAdminConfig().getTriggerPoolFastMax(),
+            // -keepAliveTime(long):空暇线程保持在线程池中的时间。当线程池中线程数量大于corePoolSize的时候。
             60L,
+            // -unit(TimeUnit枚举类):上面參数时间的单位。能够是分钟。秒，毫秒等等。
             TimeUnit.SECONDS,
+            // -workQueue(BlockingQueue):任务队列，当线程任务提交到线程池以后，首先放入队列中，然后线程池依照该任务队列依次运行对应的任务。
             new LinkedBlockingQueue<Runnable>(1000),
+            // -threadFactory(ThreadFactory类):新线程产生工厂类。
             new ThreadFactory() {
               @Override
               public Thread newThread(Runnable r) {
@@ -88,7 +94,8 @@ public class JobTriggerPoolHelper {
     // 选择线程池，默认使用快线程池，如果该任务在一分钟内超过10次，就改为使用慢线程池
     ThreadPoolExecutor triggerPool = fastTriggerPool;
     AtomicInteger jobTimeoutCount = jobTimeoutCountMap.get(jobId);
-    if (jobTimeoutCount != null && jobTimeoutCount.get() > 10) { //  job 在一分钟内超过超过 10 次，就用 slowTriggerPool 来处理
+    if (jobTimeoutCount != null
+        && jobTimeoutCount.get() > 10) { //  job 在一分钟内超过超过 10 次，就用 slowTriggerPool 来处理
       triggerPool = slowTriggerPool;
     }
 

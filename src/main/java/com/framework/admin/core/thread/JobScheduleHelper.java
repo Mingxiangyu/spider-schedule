@@ -237,6 +237,7 @@ public class JobScheduleHelper {
 
               logger.info(">>>>>>>>>>> xxl-job, JobScheduleHelper#scheduleThread stop");
             });
+    // 设置为守护线程
     scheduleThread.setDaemon(true);
     scheduleThread.setName("xxl-job, admin JobScheduleHelper#scheduleThread");
     scheduleThread.start();
@@ -296,6 +297,7 @@ public class JobScheduleHelper {
               }
               logger.info(">>>>>>>>>>> xxl-job, JobScheduleHelper#ringThread stop");
             });
+    // 设置为守护线程
     ringThread.setDaemon(true);
     ringThread.setName("xxl-job, admin JobScheduleHelper#ringThread");
     ringThread.start();
